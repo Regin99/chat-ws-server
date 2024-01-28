@@ -1,23 +1,23 @@
 import express from 'express';
 import { createServer } from 'http';
 import cors from 'cors';
-import { WebSocketServer } from 'ws';
+import { Server } from 'socket.io';
 
 const app = express();
 const server = createServer(app);
-const wss = new WebSocketServer({ server });
+const io = new Server(server);
 
 app.use(cors());
 
-wss.on('connection', (ws) => {
+io.on('connection', (socket) => {
   console.log('Client connected');
 
-  ws.on('message', (message) => {
+  socket.on('message', (message) => {
     console.log(`Received message: ${message}`);
-    ws.send(`Your message: ${message}`);
+    io.emit('message', `Everybody says : ${message}, but you shouldn't!`);
   });
 
-  ws.on('close', () => {
+  socket.on('close', () => {
     console.log('Client disconnected');
   });
 });
