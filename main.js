@@ -14,7 +14,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     console.log(`Received message: ${message}`);
-    ws.send(`Received message: ${message}`);
+    ws.send(`Your message: ${message}`);
   });
 
   ws.on('close', () => {
@@ -24,6 +24,5 @@ wss.on('connection', (ws) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(server.address());
   console.log(`Server started on port ${PORT}`);
 });
