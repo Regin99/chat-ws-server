@@ -7,7 +7,13 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://chat-ws-server.onrender.com',
+  optionsSuccessStatus: 200,
+  allowedHeaders: 'Access-Control-Allow-Origin'
+};
+
+app.use(cors(corsOptions));
 
 io.on('connection', (socket) => {
   console.log('Client connected');
