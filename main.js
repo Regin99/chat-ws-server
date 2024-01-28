@@ -5,24 +5,24 @@ import { Server } from 'socket.io';
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    allowedHeaders: 'Access-Control-Allow-Origin'
+  }
+});
 
-const corsOptions = {
-  origin: '*',
-  allowedHeaders: 'Access-Control-Allow-Origin'
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 io.on('connection', (socket) => {
   console.log('Client connected');
 
   socket.on('message', (message) => {
     console.log(`Received message: ${message}`);
-    io.emit('message', `Everybody says : ${message}, but you shouldn't!`);
+    io.emit('message', `Everybody says: ${message}, but you shouldn't!`);
   });
 
-  socket.on('close', () => {
+  socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
 });
