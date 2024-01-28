@@ -8,8 +8,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 const corsOptions = {
-  origin: 'https://chat-ws-server.onrender.com',
-  optionsSuccessStatus: 200,
+  origin: '*',
   allowedHeaders: 'Access-Control-Allow-Origin'
 };
 
